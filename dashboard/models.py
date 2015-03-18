@@ -40,9 +40,10 @@ class Dashboard(models.Model):
         (LAYOUT_DEFAULT, 'Par défaut'),
     ]
 
-    STYLE_DEFAULT = 'default.css'
+    STYLE_DEFAULT = 'bootstrap-theme.min.css'
     STYLE_LIST = [
         (STYLE_DEFAULT, 'Par défaut'),
+        ('slate.min.css', 'Slate'),
     ]
 
     name = models.CharField(verbose_name='Nom', blank=False, max_length=100)

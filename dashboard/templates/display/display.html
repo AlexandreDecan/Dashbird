@@ -1,7 +1,0 @@
-{% extends '__base.html' %}
-
-{% block title %}{{ block.super }} / {{ display.name }}{% endblock %}
-
-{% block page %}
-    {% include dashboard.get_layout with display=display dashboard=dashboard only %}
-{%  endblock %}

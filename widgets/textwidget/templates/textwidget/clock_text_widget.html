@@ -1,9 +1,11 @@
 {% extends "textwidget/__base.html" %}
 
+
 {% block widget %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
     <script language="javascript">
         $(document).ready(function() {
+
             moment.locale('fr');
 
             function update_clock(element) {
@@ -13,12 +15,17 @@
                 setTimeout(function () { update_clock(element); }, 1000);
             };
 
-            // Avoid launching multiple updates for the same widget
+            // Avoid launching multiple updates for widgets of the same type.
             $(".clockTextWidget").each(function (i, el) {
                if ($(el).attr("data-started") != 1) {
                     $(el).attr("data-started", 1);
                    update_clock(el);
                }
+            });
+
+            // If .clockTextWidget is in a navbar, add a navbar-text class
+            $(".navbar .clockTextWidget").each(function (i, el) {
+               $(el).addClass('navbar-text');
             });
         });
     </script>

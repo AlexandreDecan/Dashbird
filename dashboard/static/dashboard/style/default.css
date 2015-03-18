@@ -1,0 +1,14 @@
+body {
+    font-size: 24px;
+    height: 100%;
+}
+
+nav.navbar {
+    margin-top: 0.8em;
+}
+
+.navbar-brand {
+    font-size: 1.05em;
+    padding: 0.8em;
+}
+

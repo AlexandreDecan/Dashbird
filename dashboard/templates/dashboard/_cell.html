@@ -1,8 +1,11 @@
 {% load get_from_dict %}
+{% load class_name %}
 <div>
 {% with cells|get_item:position as cell %}
     {% if cell %}
-        {% include cell.widget.get_layout with dashboard=dashboard widget=cell.widget.get_static_context %}
+        <div class="{{ cell.widget|class_name }}">
+            {% include cell.widget.get_layout with dashboard=dashboard widget=cell.widget.get_static_context %}
+        </div>
     {%  else %}
         {% if debug %}
             <span class="text-danger">** {{ position }} **</span>

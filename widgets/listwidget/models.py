@@ -7,9 +7,10 @@ from dashboard.models import AbstractWidget
 
 
 class TextEntry(models.Model):
-    TYPE_DEFAULT = 'info'
+    TYPE_DEFAULT = 'default'
     TYPE_LIST = [
-        (TYPE_DEFAULT, 'Information'),
+        (TYPE_DEFAULT, 'Aucun'),
+        ('info', 'Information'),
         ('success', 'Succès'),
         ('warning', 'Avertissement'),
         ('danger', 'Alerte'),
@@ -36,12 +37,13 @@ class TextEntry(models.Model):
 class TextListWidget(AbstractWidget):
     LAYOUT_DEFAULT = 'text_list_widget.html'
     LAYOUT_LIST = [
-        (LAYOUT_DEFAULT, 'Simple'),
+        (LAYOUT_DEFAULT, 'Liste verticale'),
     ]
 
     INNER_LAYOUT_DEFAULT = '_alert_text_entry.html'
     INNER_LAYOUT_LIST = [
-        (INNER_LAYOUT_DEFAULT, 'Bloc coloré'),
+        (INNER_LAYOUT_DEFAULT, 'Petit bloc coloré'),
+        ('_panel_text_entry.html', 'Bloc coloré'),
         ('_ul_text_entry.html', 'Liste à puces'),
     ]
 
@@ -60,5 +62,5 @@ class TextListWidget(AbstractWidget):
 
     def get_static_context(self):
         return {'title': self.title,
-                'entries': self.entries.order_by('-created'),
+                'entries': self.entries.order_by('created'),
                 'inner_layout': 'listwidget/'+self.inner_layout}

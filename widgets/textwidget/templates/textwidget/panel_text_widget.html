@@ -4,10 +4,12 @@
     <div class="panel panel-{{ widget.type }}">
         {% if widget.header %}
             <div class="panel-heading">
-                 {{ widget.header|safe }}
+                {{ widget.header|safe }}
             </div>
         {% endif %}
-        {{ widget.content|safe }}
+        <div class="panel-body">
+            {{ widget.content|safe }}
+        </div>
         {% if widget.footer %}
             <div class="panel-footer">
                 {{ widget.footer|safe }}

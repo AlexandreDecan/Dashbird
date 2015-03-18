@@ -1,7 +1,7 @@
 {%  load static %}<!DOCTYPE html>
 
 <html lang="fr">
-  <head>
+<head>
     {% block meta_tags %}{% endblock %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,13 +22,10 @@
         <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
     {% endblock javascript %}
     {{ form.media }}
-  </head>
-  <body>
+</head>
+<body>
 
-    <div class="container-fluid">
-        <div class="col-md-12">
-            {%  block page %}{% endblock %}
-        </div>
-    </div>
-  </body>
+{%  block page %}{% endblock %}
+
+</body>
 </html>

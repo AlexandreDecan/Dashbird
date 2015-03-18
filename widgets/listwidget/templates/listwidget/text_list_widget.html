@@ -1,7 +1,7 @@
 {% extends 'listwidget/__base.html' %}
 
 {% block widget %}
-    {% if widget.title %}<h3>{{ widget.title }}</h3>{% endif %}
+    {% if widget.title %}<h2>{{ widget.title }}</h2>{% endif %}
     {% for entry in widget.entries %}
         {% include widget.inner_layout with entry=entry %}
     {% endfor %}
