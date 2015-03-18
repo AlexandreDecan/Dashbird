@@ -1,0 +1,24 @@
+{% extends '__base.html' %}
+
+{% block title %}{{ block.super }} / Dashboard{% endblock %}
+
+{% block page %}
+    {% block header %}
+        <div class="row">
+            <div class="col-md-6">
+                <h1>
+                {% include 'dashboard/_cell.html' with position='top-left' %}
+                </h1>
+            </div>
+            <div class="col-md-6">
+                <h1 class="pull-right">
+                {% include 'dashboard/_cell.html' with position='top-right' %}
+                </h1>
+            </div>
+        </div>
+    {% endblock %}
+
+    <div class="row">
+    {% block main %}{% endblock %}
+    </div>
+{% endblock %}

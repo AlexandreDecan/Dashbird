@@ -1,0 +1,24 @@
+{% extends "textwidget/__base.html" %}
+
+{% block widget %}
+    <span id="clock-{{ widget.uid }}"></span>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
+    <script language="javascript">
+        var format = "{{ widget.format }}";
+        var uid = {{ widget.uid }};
+
+        moment.locale('fr');
+
+        function update_time() {
+            var datetime = moment();
+            datetime.add({{ widget.delay }}, 's');
+            var datetime_str = datetime.format(format);
+            $('#clock-'+uid).text(datetime_str);
+            setTimeout(update_time, 1000);
+        }
+
+        update_time();
+    </script>
+{% endblock %}
+

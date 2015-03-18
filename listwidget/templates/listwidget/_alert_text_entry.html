@@ -1,0 +1,7 @@
+<div class="alert alert-{{ entry.type }}">
+    <div>
+        {% if entry.title %}<b>{{ entry.title }}</b> &mdash; {% endif %}
+        {{ entry.content|safe }}
+    </div>
+    <div class="pull-right small">Il y a {{ entry.created|timesince }}</div>
+</div>

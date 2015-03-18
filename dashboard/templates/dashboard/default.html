@@ -1,0 +1,19 @@
+{%  extends 'dashboard/__base.html' %}
+
+{% block title %}{{ block.super }} / {{ dashboard.name }}{%  endblock %}
+
+{% block header %}
+    {{ block.super }}
+{% endblock %}
+
+{% block main %}
+    <div class="col-md-4">
+        {% include 'dashboard/_cell.html' with position='main-1' %}
+    </div>
+    <div class="col-md-4">
+        {% include 'dashboard/_cell.html' with position='main-2' %}
+    </div>
+    <div class="col-md-4">
+        {% include 'dashboard/_cell.html' with position='main-3' %}
+    </div>
+{%  endblock %}

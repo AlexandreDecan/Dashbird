@@ -1,0 +1,18 @@
+{% extends "textwidget/__base.html" %}
+
+{% block widget %}
+    <div class="panel panel-{{ widget.type }}">
+        {% if widget.header %}
+            <div class="panel-heading">
+                 {{ widget.header|safe }}
+            </div>
+        {% endif %}
+        {{ widget.content|safe }}
+        {% if widget.footer %}
+            <div class="panel-footer">
+                {{ widget.footer|safe }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
