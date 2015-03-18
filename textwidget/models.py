@@ -63,8 +63,5 @@ class ClockTextWidget(AbstractWidget):
         return 'textwidget/clock_text_widget.html'
 
     def get_static_context(self):
-        import random
-
         return {'format': self.format,
-                'delay': self.delay,
-                'uid': random.randint(0, 1000)}
+                'delay': self.delay}

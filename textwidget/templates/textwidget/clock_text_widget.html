@@ -1,24 +1,28 @@
 {% extends "textwidget/__base.html" %}
 
 {% block widget %}
-    <span id="clock-{{ widget.uid }}"></span>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
     <script language="javascript">
-        var format = "{{ widget.format }}";
-        var uid = {{ widget.uid }};
+        $(document).ready(function() {
+            moment.locale('fr');
 
-        moment.locale('fr');
+            function update_clock(element) {
+                var datetime = moment();
+                datetime.add($(element).attr("data-delay"), 's');
+                $(element).text(datetime.format($(element).attr("data-format")));
+                setTimeout(function () { update_clock(element); }, 1000);
+            };
 
-        function update_time() {
-            var datetime = moment();
-            datetime.add({{ widget.delay }}, 's');
-            var datetime_str = datetime.format(format);
-            $('#clock-'+uid).text(datetime_str);
-            setTimeout(update_time, 1000);
-        }
-
-        update_time();
+            // Avoid launching multiple updates for the same widget
+            $(".clockTextWidget").each(function (i, el) {
+               if ($(el).attr("data-started") != 1) {
+                    $(el).attr("data-started", 1);
+                   update_clock(el);
+               }
+            });
+        });
     </script>
+    <span class="clockTextWidget" data-format="{{ widget.format }}" data-delay="{{ widget.delay }}"></span>
+
 {% endblock %}
 
