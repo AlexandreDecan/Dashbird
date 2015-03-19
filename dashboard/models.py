@@ -35,9 +35,19 @@ class Display(models.Model):
 
 
 class Dashboard(models.Model):
-    LAYOUT_DEFAULT = 'default.html'
-    LAYOUT_LIST = [
-        (LAYOUT_DEFAULT, 'Par défaut'),
+    HEADER_LAYOUT_DEFAULT = 'navbar.html'
+    HEADER_LAYOUT_LIST = [
+        (HEADER_LAYOUT_DEFAULT, 'Barre de navigation'),
+    ]
+
+    MAIN_LAYOUT_DEFAULT = '3cols.html'
+    MAIN_LAYOUT_LIST = [
+        (MAIN_LAYOUT_DEFAULT, '3 colonnes'),
+    ]
+
+    FOOTER_LAYOUT_DEFAULT = 'nothing.html'
+    FOOTER_LAYOUT_LIST = [
+        (FOOTER_LAYOUT_DEFAULT, 'Aucun'),
     ]
 
     STYLE_DEFAULT = 'bootstrap-theme.min.css'
@@ -48,7 +58,9 @@ class Dashboard(models.Model):
 
     name = models.CharField(verbose_name='Nom', blank=False, max_length=100)
     description = models.TextField(verbose_name='Description', blank=True)
-    layout = models.CharField(verbose_name='Disposition', max_length=100, choices=LAYOUT_LIST, default=LAYOUT_DEFAULT)
+    header_layout = models.CharField(verbose_name='Haut de page', max_length=100, choices=HEADER_LAYOUT_LIST, default=HEADER_LAYOUT_DEFAULT)
+    main_layout = models.CharField(verbose_name='Corps de page', max_length=100, choices=MAIN_LAYOUT_LIST, default=MAIN_LAYOUT_DEFAULT)
+    footer_layout = models.CharField(verbose_name='Pied de page', max_length=100, choices=FOOTER_LAYOUT_LIST, default=FOOTER_LAYOUT_DEFAULT)
     style = models.CharField(verbose_name='Thème', max_length=100, choices=STYLE_LIST, default=STYLE_DEFAULT)
     auto_refresh = models.IntegerField(verbose_name='Rafraichissement', default=0,
                                        help_text='en secondes (<=0 pour désactiver)')
@@ -59,8 +71,14 @@ class Dashboard(models.Model):
     def __unicode__(self):
         return '{name}'.format(name=self.name)
 
-    def get_layout(self):
-        return 'dashboard/' + self.layout
+    def get_header_layout(self):
+        return 'dashboard/header/' + self.header_layout
+
+    def get_main_layout(self):
+        return 'dashboard/main/' + self.main_layout
+
+    def get_footer_layout(self):
+        return 'dashboard/footer/' + self.footer_layout
 
     def get_style(self):
         return 'dashboard/style/' + self.style

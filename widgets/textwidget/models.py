@@ -60,7 +60,7 @@ class ClockTextWidget(AbstractWidget):
         verbose_name_plural = 'Date et heure'
 
     def get_layout(self):
-        return 'textwidget/clock/clock.html'
+        return 'textwidget/clockwidget/clock.html'
 
     def get_static_context(self):
         return {'format': self.format,

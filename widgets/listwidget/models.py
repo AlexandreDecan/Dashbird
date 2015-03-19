@@ -63,4 +63,4 @@ class TextListWidget(AbstractWidget):
     def get_static_context(self):
         return {'title': self.title,
                 'entries': self.entries.order_by('created'),
-                'inner_layout': 'listwidget/textlistwidget/'+self.inner_layout}
+                'inner_layout': 'listwidget/textlistwidget/entries/'+self.inner_layout}

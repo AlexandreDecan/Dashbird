@@ -36,4 +36,4 @@ class DisplayView(View):
             'cells': display.dashboard.cells
         }
 
-        return render(request, display.dashboard.get_layout(), context)
+        return render(request, 'dashboard/dashboard.html', context)
