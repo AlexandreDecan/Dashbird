@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,10 +52,14 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+
 ROOT_URLCONF = 'Dashbird.urls'
 
 WSGI_APPLICATION = 'Dashbird.wsgi.application'
 
+
+# Grappelli
+GRAPPELLI_ADMIN_TITLE = 'Dashbird'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases

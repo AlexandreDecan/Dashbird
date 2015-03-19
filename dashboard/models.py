@@ -93,11 +93,12 @@ class Dashboard(models.Model):
 
 class Cell(models.Model):
     dashboard = models.ForeignKey('Dashboard')
-    position = models.CharField(verbose_name='Position', blank=False, max_length=100)
-    content_type = models.ForeignKey(ContentType,
+    position = models.CharField(verbose_name='Position', blank=False, max_length=100,
+                                help_text='header-x, main-x ou footer-x où x est un nombre (de 1 à ...).')
+    content_type = models.ForeignKey(ContentType, verbose_name='Type de widget',
                                      limit_choices_to=Q(app_label__icontains="widget",
                                                         model__icontains="widget"))
-    object_id = models.PositiveIntegerField()
+    object_id = models.PositiveIntegerField(verbose_name='Numéro du widget')
     widget = GenericForeignKey('content_type', 'object_id')
 
     class Meta():
