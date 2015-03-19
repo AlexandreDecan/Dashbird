@@ -35,16 +35,16 @@ class TextEntry(models.Model):
 
 
 class TextListWidget(AbstractWidget):
-    LAYOUT_DEFAULT = 'text_list_widget.html'
+    LAYOUT_DEFAULT = 'vertical.html'
     LAYOUT_LIST = [
         (LAYOUT_DEFAULT, 'Liste verticale'),
     ]
 
-    INNER_LAYOUT_DEFAULT = '_alert_text_entry.html'
+    INNER_LAYOUT_DEFAULT = 'alert.html'
     INNER_LAYOUT_LIST = [
         (INNER_LAYOUT_DEFAULT, 'Petit bloc coloré'),
-        ('_panel_text_entry.html', 'Bloc coloré'),
-        ('_ul_text_entry.html', 'Liste à puces'),
+        ('panel.html', 'Bloc coloré'),
+        ('list.html', 'Liste à puces'),
     ]
 
     title = models.CharField(verbose_name='Titre', blank=True, max_length=100)
@@ -58,9 +58,9 @@ class TextListWidget(AbstractWidget):
         verbose_name_plural = 'Listes de texte'
 
     def get_layout(self):
-        return 'listwidget/' + self.layout
+        return 'listwidget/textlistwidget/' + self.layout
 
     def get_static_context(self):
         return {'title': self.title,
                 'entries': self.entries.order_by('created'),
-                'inner_layout': 'listwidget/'+self.inner_layout}
+                'inner_layout': 'listwidget/textlistwidget/'+self.inner_layout}

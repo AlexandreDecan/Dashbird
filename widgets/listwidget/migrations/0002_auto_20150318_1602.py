@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='textlistwidget',
             name='layout',
-            field=models.CharField(default='text_list_widget.html', max_length=100, verbose_name='Disposition', choices=[('text_list_widget.html', 'Par d\xe9faut')]),
+            field=models.CharField(default='vertical.html', max_length=100, verbose_name='Disposition', choices=[('vertical.html', 'Par d\xe9faut')]),
             preserve_default=True,
         ),
     ]

@@ -13,7 +13,7 @@ class SimpleTextWidget(AbstractWidget):
         verbose_name = 'Texte simple'
 
     def get_layout(self):
-        return 'textwidget/simple_text_widget.html'
+        return 'textwidget/simplewidget/simple.html'
 
     def get_static_context(self):
         return {'content': self.content}
@@ -40,7 +40,7 @@ class PanelTextWidget(AbstractWidget):
         verbose_name_plural = 'Cadres de texte'
 
     def get_layout(self):
-        return 'textwidget/panel_text_widget.html'
+        return 'textwidget/panelwidget/panel.html'
 
     def get_static_context(self):
         return {'type': self.type,
@@ -60,7 +60,7 @@ class ClockTextWidget(AbstractWidget):
         verbose_name_plural = 'Date et heure'
 
     def get_layout(self):
-        return 'textwidget/clock_text_widget.html'
+        return 'textwidget/clock/clock.html'
 
     def get_static_context(self):
         return {'format': self.format,
