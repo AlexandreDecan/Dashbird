@@ -25,11 +25,11 @@
     <div class="autorefresh-bar">
         {% if dashboard.auto_refresh > 0 %}
             <div class="clearfix"></div>
-            <div class="progress-bar" id="autorefresh" style="width: 0%; transition-duration: {{ dashboard.auto_refresh }}s;"></div>
+            <div class="progresss"><div class="progress-bar" id="autorefresh" style="width: 0%; transition-duration: {{ dashboard.auto_refresh }}s;"></div></div>
 
             <script language="javascript">
                 $(document).ready(function() {
-                    $('#autorefresh').css('width', '100%');
+                    setTimeout(function () { $('#autorefresh').css('width', '100%'); }, 1000); // Avoid freezing bar
                     setTimeout(function () { window.location.reload(); }, 1000 * {{ dashboard.auto_refresh }});
                 });
             </script>

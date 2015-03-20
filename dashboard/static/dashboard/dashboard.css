@@ -1,6 +1,7 @@
 body {
     font-size: 24px;
     height: 100%;
+    overflow: hidden;
 }
 
 nav.navbar {
@@ -16,6 +17,10 @@ nav.navbar {
     position: absolute;
     bottom: 0px;
     width: 100%;
+}
+
+.autorefresh-bar .progress {
+    height: 4px;
 }
 
 .autorefresh-bar .progress-bar {
