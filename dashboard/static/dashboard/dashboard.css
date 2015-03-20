@@ -12,3 +12,13 @@ nav.navbar {
     padding: 0.8em;
 }
 
+.autorefresh-bar {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.autorefresh-bar .progress-bar {
+    height: 4px;
+    transition-timing-function: linear;
+}

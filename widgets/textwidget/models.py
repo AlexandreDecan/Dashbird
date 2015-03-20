@@ -14,7 +14,7 @@ class SimpleTextWidget(AbstractWidget):
         verbose_name_plural = 'widgets - texte simple'
 
     def get_layout(self):
-        return 'simple.html'
+        return 'textwidget/simplewidget/simple.html'
 
     def get_static_context(self):
         return {'content': self.content}

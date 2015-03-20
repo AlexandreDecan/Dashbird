@@ -25,7 +25,7 @@ class DashboardAdmin(admin.ModelAdmin):
 
 @admin.register(Cell)
 class CellAdmin(admin.ModelAdmin):
-    list_display = ('widget', 'dashboard', 'position', 'content_type', 'widget')
+    list_display = ('__unicode__', 'dashboard', 'position', 'content_type', 'widget')
     list_filter = ('dashboard', 'position', )
     ordering = ('dashboard__name',)
 
