@@ -7,13 +7,14 @@ from dashboard.models import AbstractWidget
 
 
 class SimpleTextWidget(AbstractWidget):
-    content = models.TextField(verbose_name='Contenu')
+    content = models.TextField(verbose_name='contenu')
 
     class Meta():
-        verbose_name = 'Texte simple'
+        verbose_name = 'widget - texte simple'
+        verbose_name_plural = 'widgets - texte simple'
 
     def get_layout(self):
-        return 'textwidget/simplewidget/simple.html'
+        return 'simple.html'
 
     def get_static_context(self):
         return {'content': self.content}
@@ -30,14 +31,14 @@ class PanelTextWidget(AbstractWidget):
         ('danger', 'Alerte')
     ]
 
-    header = models.CharField(verbose_name='En-tête', blank=True, max_length=100)
-    type = models.CharField(verbose_name='Type', choices=TYPE_LIST, default=TYPE_DEFAULT, max_length=100)
-    content = models.TextField(verbose_name='Contenu')
-    footer = models.CharField(verbose_name='Pied de page', blank=True, max_length=100)
+    header = models.CharField(verbose_name='contenu de l\'en-tête', blank=True, max_length=100)
+    type = models.CharField(verbose_name='type de texte', choices=TYPE_LIST, default=TYPE_DEFAULT, max_length=100)
+    content = models.TextField(verbose_name='contenu du bloc principal')
+    footer = models.CharField(verbose_name='contenu du pied de page', blank=True, max_length=100)
 
     class Meta():
-        verbose_name = 'Cadre de texte'
-        verbose_name_plural = 'Cadres de texte'
+        verbose_name = 'widget - cadre de texte'
+        verbose_name_plural = 'widgets - cadre de texte'
 
     def get_layout(self):
         return 'textwidget/panelwidget/panel.html'
@@ -50,14 +51,17 @@ class PanelTextWidget(AbstractWidget):
 
 
 class ClockTextWidget(AbstractWidget):
-    format = models.CharField(verbose_name='Format', blank=False, max_length=20, default='dddd DD/MM, HH:mm:ss',
-                              help_text='http://momentjs.com/docs/#/displaying/')
-    delay = models.IntegerField(verbose_name='Décalage', default=0,
-                                help_text='Décalage positif ou négatif, en seconde')
+    format = models.CharField(verbose_name='format de l\'affichage', blank=False, max_length=20,
+                              default='dddd DD/MM, HH:mm:ss',
+                              help_text='Consultez <a href="http://momentjs.com/docs/#/displaying/">ce lien</a> pour '
+                                        'connaître les différents éléments pouvant être utilisés dans le format.')
+    delay = models.IntegerField(verbose_name='décalage de l\'heure', default=0,
+                                help_text='Le décalage à appliquer sur l\'heure, exprimé en secondes. '
+                                          'Ce décalage peut être positif ou négatif.')
 
     class Meta():
-        verbose_name = 'Date et heure'
-        verbose_name_plural = 'Date et heure'
+        verbose_name = 'widget - date et heure'
+        verbose_name_plural = 'widgets - date et heure'
 
     def get_layout(self):
         return 'textwidget/clockwidget/clock.html'

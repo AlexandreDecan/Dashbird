@@ -4,8 +4,8 @@
 <div>
 {% with cells|get_item:position as cell %}
     {% if cell %}
-        <div class="{{ cell.widget|class_name }}">
-            {% include cell.widget.get_layout with dashboard=dashboard widget=cell.widget.get_static_context %}
+        <div class="cell cell-{{ position }} {{ cell.widget.classname }}" id="{{ cell.widget.wuid }}">
+            {% include cell.widget.get_layout with dashboard=dashboard static_context=cell.widget.get_static_context wuid=cell.widget.wuid position=position %}
         </div>
     {%  else %}
         {% if debug %}

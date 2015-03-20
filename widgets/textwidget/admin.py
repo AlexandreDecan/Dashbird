@@ -7,11 +7,11 @@ from models import SimpleTextWidget, PanelTextWidget, ClockTextWidget
 
 @admin.register(SimpleTextWidget)
 class SimpleTextWidgetAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'content',)
 
 @admin.register(PanelTextWidget)
 class PanelTextWidgetAdmin(admin.ModelAdmin):
-    list_display = ('name', 'header', 'type')
+    list_display = ('name', 'type', 'header', 'content')
 
 @admin.register(ClockTextWidget)
 class ClockTextWidgetAdmin(admin.ModelAdmin):

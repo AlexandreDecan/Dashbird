@@ -1,8 +1,8 @@
 {% extends 'listwidget/__base.html' %}
 
 {% block widget %}
-    {% if widget.title %}<h2>{{ widget.title }}</h2>{% endif %}
-    {% for entry in widget.entries %}
-        {% include widget.inner_layout with entry=entry %}
+    {% if static_context.title %}<h2>{{ static_context.title }}</h2>{% endif %}
+    {% for entry in static_context.entries %}
+        {% include static_context.inner_layout with entry=entry %}
     {% endfor %}
 {% endblock %}

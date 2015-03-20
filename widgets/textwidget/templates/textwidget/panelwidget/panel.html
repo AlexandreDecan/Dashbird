@@ -1,18 +1,18 @@
 {% extends "textwidget/__base.html" %}
 
 {% block widget %}
-    <div class="panel panel-{{ widget.type }}">
-        {% if widget.header %}
+    <div class="panel panel-{{ static_context.type }}">
+        {% if static_context.header %}
             <div class="panel-heading">
-                {{ widget.header|safe }}
+                {{ static_context.header|safe }}
             </div>
         {% endif %}
         <div class="panel-body">
-            {{ widget.content|safe }}
+            {{ static_context.content|safe }}
         </div>
-        {% if widget.footer %}
+        {% if static_context.footer %}
             <div class="panel-footer">
-                {{ widget.footer|safe }}
+                {{ static_context.footer|safe }}
             </div>
         {% endif %}
     </div>

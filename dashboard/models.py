@@ -8,6 +8,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.db import models
 from django.db.models import Q
 
+from Dashbird.tools import LazyListDir
+
 
 class RegisteredDisplayManager(models.Manager):
     def get_queryset(self):
@@ -15,17 +17,22 @@ class RegisteredDisplayManager(models.Manager):
 
 
 class Display(models.Model):
-    identifier = models.CharField(verbose_name='Identifiant', blank=False, max_length=100, unique=True)
-    name = models.CharField(verbose_name='Nom', blank=True, max_length=100)
-    description = models.TextField(verbose_name='Description', blank=True)
-    dashboard = models.ForeignKey('Dashboard', verbose_name='Dashboard', null=True)
-    created_date = models.DateTimeField(verbose_name='Date de création', auto_now_add=True)
+    identifier = models.CharField(verbose_name='identifiant unique', blank=False, max_length=100,
+                                  unique=True, help_text='Ne modifiez cette valeur que si vous savez ce '
+                                                         'que vous faites !')
+    name = models.CharField(verbose_name='nom', blank=True, max_length=100,
+                            help_text='Par exemple : "Hall principal" ou "Couloir extérieur"')
+    description = models.TextField(verbose_name='description', blank=True,
+                                   help_text='Vous pouvez préciser le public auquel s\'adresse cet affichage.')
+    dashboard = models.ForeignKey('Dashboard', null=True, on_delete=models.SET_NULL)
+    created_date = models.DateTimeField(verbose_name='date de création', auto_now_add=True)
 
     objects = models.Manager()
     registered = RegisteredDisplayManager()
 
     class Meta():
-        verbose_name = 'Affichage'
+        verbose_name = 'dispositif d\'affichage'
+        verbose_name_plural = 'dispositifs d\'affichage'
 
     def get_absolute_url(self):
         return reverse_lazy('display', kwargs={'display_identifier': self.identifier})
@@ -35,38 +42,37 @@ class Display(models.Model):
 
 
 class Dashboard(models.Model):
+    HEADER_LAYOUT_LIST = LazyListDir('dashboard/templates/dashboard/header/', '(?P<name>.*)\.html')
     HEADER_LAYOUT_DEFAULT = 'navbar.html'
-    HEADER_LAYOUT_LIST = [
-        (HEADER_LAYOUT_DEFAULT, 'Barre de navigation'),
-    ]
 
-    MAIN_LAYOUT_DEFAULT = '3cols.html'
-    MAIN_LAYOUT_LIST = [
-        (MAIN_LAYOUT_DEFAULT, '3 colonnes'),
-    ]
+    MAIN_LAYOUT_LIST = LazyListDir('dashboard/templates/dashboard/main/', '(?P<name>.*)\.html')
+    MAIN_LAYOUT_DEFAULT = '1x3.html'
 
+    FOOTER_LAYOUT_LIST = LazyListDir('dashboard/templates/dashboard/footer/', '(?P<name>.*)\.html')
     FOOTER_LAYOUT_DEFAULT = 'nothing.html'
-    FOOTER_LAYOUT_LIST = [
-        (FOOTER_LAYOUT_DEFAULT, 'Aucun'),
-    ]
 
+    STYLE_LIST = LazyListDir('dashboard/static/dashboard/style/', '(?P<name>.*)\.min\.css')
     STYLE_DEFAULT = 'bootstrap-theme.min.css'
-    STYLE_LIST = [
-        (STYLE_DEFAULT, 'Par défaut'),
-        ('slate.min.css', 'Slate'),
-    ]
 
-    name = models.CharField(verbose_name='Nom', blank=False, max_length=100)
-    description = models.TextField(verbose_name='Description', blank=True)
-    header_layout = models.CharField(verbose_name='Haut de page', max_length=100, choices=HEADER_LAYOUT_LIST, default=HEADER_LAYOUT_DEFAULT)
-    main_layout = models.CharField(verbose_name='Corps de page', max_length=100, choices=MAIN_LAYOUT_LIST, default=MAIN_LAYOUT_DEFAULT)
-    footer_layout = models.CharField(verbose_name='Pied de page', max_length=100, choices=FOOTER_LAYOUT_LIST, default=FOOTER_LAYOUT_DEFAULT)
-    style = models.CharField(verbose_name='Thème', max_length=100, choices=STYLE_LIST, default=STYLE_DEFAULT)
-    auto_refresh = models.IntegerField(verbose_name='Rafraichissement', default=0,
-                                       help_text='en secondes (<=0 pour désactiver)')
+    name = models.CharField(verbose_name='nom du dashboard', blank=False, max_length=100)
+    description = models.TextField(verbose_name='description', blank=True,
+                                   help_text='Par exemple: les personnes ou les lieux destinés à l\'usage '
+                                             'de ce dashboard.')
+    header_layout = models.CharField(verbose_name='mise en page du haut de page', max_length=100,
+                                     choices=HEADER_LAYOUT_LIST, default=HEADER_LAYOUT_DEFAULT)
+    main_layout = models.CharField(verbose_name='mise en page du corps de page', max_length=100,
+                                   choices=MAIN_LAYOUT_LIST, default=MAIN_LAYOUT_DEFAULT)
+    footer_layout = models.CharField(verbose_name='mise en page du pied de page', max_length=100,
+                                     choices=FOOTER_LAYOUT_LIST, default=FOOTER_LAYOUT_DEFAULT)
+    style = models.CharField(verbose_name='thème', max_length=100, choices=STYLE_LIST, default=STYLE_DEFAULT,
+                             help_text='Jeu de couleurs et disposition à appliquer.')
+    auto_refresh = models.IntegerField(verbose_name='rafraichissement', default=0,
+                                       help_text='Le dashboard se rafraîchit automatiquement au bout du nombre de '
+                                                 'secondes indiquées. Si ce nombre est plus petit ou égal à 0, le '
+                                                 'rafraichissement automatique est désactivé.')
 
     class Meta():
-        verbose_name = 'Dashboard'
+        verbose_name = 'dashboard'
 
     def __unicode__(self):
         return '{name}'.format(name=self.name)
@@ -93,16 +99,17 @@ class Dashboard(models.Model):
 
 class Cell(models.Model):
     dashboard = models.ForeignKey('Dashboard')
-    position = models.CharField(verbose_name='Position', blank=False, max_length=100,
+    position = models.CharField(verbose_name='position dans le dashboard', blank=False, max_length=100,
                                 help_text='header-x, main-x ou footer-x où x est un nombre (de 1 à ...).')
-    content_type = models.ForeignKey(ContentType, verbose_name='Type de widget',
+    content_type = models.ForeignKey(ContentType, verbose_name='type de widget',
                                      limit_choices_to=Q(app_label__icontains="widget",
                                                         model__icontains="widget"))
-    object_id = models.PositiveIntegerField(verbose_name='Numéro du widget')
+    object_id = models.PositiveIntegerField(verbose_name='numéro du widget')
     widget = GenericForeignKey('content_type', 'object_id')
 
     class Meta():
-        verbose_name = 'Association'
+        verbose_name = 'position des widgets'
+        verbose_name_plural = 'positions des widgets'
 
     def __unicode__(self):
         return '{dashboard}[{position}]->{widget}'.format(
@@ -113,9 +120,18 @@ class Cell(models.Model):
 
 
 class AbstractWidget(models.Model):
-    name = models.CharField(verbose_name='Nom', blank=False, max_length=100)
-    created = models.DateTimeField(verbose_name='Date de création', auto_now_add=True)
-    modified = models.DateTimeField(verbose_name='Date de modification', auto_now=True)
+    name = models.CharField(verbose_name='nom', blank=False, max_length=100,
+                            help_text='Le nom est obligatoire et permet d\'identifier votre widget facilement.')
+    created = models.DateTimeField(verbose_name='date de création', auto_now_add=True)
+    modified = models.DateTimeField(verbose_name='date de modification', auto_now=True)
+
+    @property
+    def classname(self):
+        return self.__class__.__name__
+
+    @property
+    def wuid(self):
+        return '{classname}-{id}'.format(classname=self.classname, id=self.pk)
 
     def __unicode__(self):
         return self.name

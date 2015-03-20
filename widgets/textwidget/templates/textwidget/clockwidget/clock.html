@@ -10,26 +10,18 @@
 
             function update_clock(element) {
                 var datetime = moment();
-                datetime.add($(element).attr("data-delay"), 's');
-                $(element).text(datetime.format($(element).attr("data-format")));
+                datetime.add(element.attr("data-delay"), 's');
+                element.text(datetime.format(element.attr("data-format")));
                 setTimeout(function () { update_clock(element); }, 1000);
             };
 
-            // Avoid launching multiple updates for widgets of the same type.
-            $(".clockTextWidget").each(function (i, el) {
-               if ($(el).attr("data-started") != 1) {
-                    $(el).attr("data-started", 1);
-                   update_clock(el);
-               }
-            });
+            // If it is in a navbar, add a navbar-text class
+            $(".navbar #clock-{{ wuid }}").addClass('navbar-text');
 
-            // If .clockTextWidget is in a navbar, add a navbar-text class
-            $(".navbar .clockTextWidget").each(function (i, el) {
-               $(el).addClass('navbar-text');
-            });
+            update_clock($("#clock-{{ wuid }}"));
         });
     </script>
-    <span class="clockTextWidget" data-format="{{ widget.format }}" data-delay="{{ widget.delay }}"></span>
+    <span id="clock-{{ wuid }}" data-format="{{ static_context.format }}" data-delay="{{ static_context.delay }}"></span>
 
 {% endblock %}
 
