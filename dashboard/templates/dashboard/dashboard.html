@@ -9,7 +9,7 @@
     <link href="{% static 'dashboard/dashboard.css' %}" rel="stylesheet"/>
 {% endblock %}
 
-{%  block page %}
+{% block page %}
     {% block header %}
         {% include dashboard.get_header_layout with dashboard=dashboard cells=cells display=display %}
     {% endblock %}
@@ -25,7 +25,7 @@
     <div class="autorefresh-bar">
         {% if dashboard.auto_refresh > 0 %}
             <div class="clearfix"></div>
-            <div class="progress-bar" id="autorefresh" style="width: 0%; transition-duration: {{ dashboard.auto_refresh }}s;">
+            <div class="progress-bar" id="autorefresh" style="width: 0%; transition-duration: {{ dashboard.auto_refresh }}s;"></div>
 
             <script language="javascript">
                 $(document).ready(function() {
