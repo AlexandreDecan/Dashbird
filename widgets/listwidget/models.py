@@ -3,7 +3,7 @@
 
 from __future__ import unicode_literals
 from django.db import models
-from Dashbird.tools import LazyListDir
+from Dashbird.tools import ChoicesFromDir
 from dashboard.models import AbstractWidget
 
 
@@ -36,10 +36,10 @@ class TextEntry(models.Model):
 
 
 class TextListWidget(AbstractWidget):
-    LAYOUT_LIST = LazyListDir('widgets/listwidget/templates/listwidget/textlistwidget/', '(?P<name>.*)\.html')
+    LAYOUT_LIST = ChoicesFromDir('widgets/listwidget/templates/listwidget/textlistwidget/', '(?P<name>.*)\.html')
     LAYOUT_DEFAULT = 'vertical.html'
 
-    INNER_LAYOUT_LIST = LazyListDir('widgets/listwidget/templates/listwidget/textlistwidget/entries/', '(?P<name>.*)\.html')
+    INNER_LAYOUT_LIST = ChoicesFromDir('widgets/listwidget/templates/listwidget/textlistwidget/entries/', '(?P<name>.*)\.html')
     INNER_LAYOUT_DEFAULT = 'alert.html'
 
     title = models.CharField(verbose_name='titre', blank=True, max_length=100)

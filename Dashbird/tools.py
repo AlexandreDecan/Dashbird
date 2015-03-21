@@ -4,7 +4,7 @@ import os
 
 
 
-class LazyListDir(object):
+class ChoicesFromDir(object):
     """
     A lazy iterator that list files in given directory, returning a list of
     pairs (matched_file, display_text).
@@ -18,7 +18,7 @@ class LazyListDir(object):
         """
         Construct a lazy listing directory iterator.
         If `match` is None, every file is kept.
-        If `display_func` is None, then the file name will be set to LazyListDir.display
+        If `display_func` is None, then the file name will be set to ChoicesFromDir.display
 
         :param path: path to the directory, passed to os.listdir
         :param match: regular expression that catches kept files. Must contain one named group "name" that will
@@ -27,7 +27,7 @@ class LazyListDir(object):
         """
         self.path = path
         self.match = match if match else '.*'
-        self.display_func = display_func if display_func else LazyListDir.display
+        self.display_func = display_func if display_func else ChoicesFromDir.display
 
     def __iter__(self):
         match_re = re.compile(self.match)
@@ -51,4 +51,4 @@ class LazyListDir(object):
         except ValueError:
             filename, ext = filename, ''
 
-        return ' '.join([chunk.title() for chunk in re.split(LazyListDir._DISPLAY_SPLIT_RE, filename)])
+        return ' '.join([chunk.title() for chunk in re.split(ChoicesFromDir._DISPLAY_SPLIT_RE, filename)])

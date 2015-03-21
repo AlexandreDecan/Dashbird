@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.db import models
 from django.db.models import Q
 
-from Dashbird.tools import LazyListDir
+from Dashbird.tools import ChoicesFromDir
 
 
 class RegisteredDisplayManager(models.Manager):
@@ -42,17 +42,17 @@ class Display(models.Model):
 
 
 class Dashboard(models.Model):
-    HEADER_LAYOUT_LIST = LazyListDir('dashboard/templates/dashboard/header/', '(?P<name>.*)\.html')
+    HEADER_LAYOUT_LIST = ChoicesFromDir('dashboard/templates/dashboard/header/', '(?P<name>.*)\.html')
     HEADER_LAYOUT_DEFAULT = 'navbar.html'
 
-    MAIN_LAYOUT_LIST = LazyListDir('dashboard/templates/dashboard/main/', '(?P<name>.*)\.html')
+    MAIN_LAYOUT_LIST = ChoicesFromDir('dashboard/templates/dashboard/main/', '(?P<name>.*)\.html')
     MAIN_LAYOUT_DEFAULT = '1x3.html'
 
-    FOOTER_LAYOUT_LIST = LazyListDir('dashboard/templates/dashboard/footer/', '(?P<name>.*)\.html')
+    FOOTER_LAYOUT_LIST = ChoicesFromDir('dashboard/templates/dashboard/footer/', '(?P<name>.*)\.html')
     FOOTER_LAYOUT_DEFAULT = 'nothing.html'
 
-    STYLE_LIST = LazyListDir('dashboard/static/dashboard/style/', '(?P<name>.*)\.min\.css')
-    STYLE_DEFAULT = 'bootstrap-theme.min.css'
+    STYLE_LIST = ChoicesFromDir('dashboard/static/dashboard/style/', '(?P<name>.*)\.min\.css')
+    STYLE_DEFAULT = 'default.min.css'
 
     name = models.CharField(verbose_name='nom du dashboard', blank=False, max_length=100)
     description = models.TextField(verbose_name='description', blank=True,
@@ -112,7 +112,7 @@ class Cell(models.Model):
         verbose_name_plural = 'positions des widgets'
 
     def __unicode__(self):
-        return '{dashboard}[{position}]->{widget}'.format(
+        return '{dashboard} ({position}) <-> {widget}'.format(
             dashboard=self.dashboard,
             position=self.position,
             widget=self.widget
