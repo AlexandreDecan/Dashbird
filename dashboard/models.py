@@ -7,6 +7,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse_lazy
 from django.db import models
 from django.db.models import Q
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 from Dashbird.tools import ChoicesFromDir
 
@@ -117,6 +119,26 @@ class Cell(models.Model):
             position=self.position,
             widget=self.widget
         )
+
+
+
+@receiver(post_delete)
+def remove_orphan_cells(sender, instance, **kwargs):
+    """
+    This function is called every time a deletion is detected through the system.
+    It aims to intercept widget deletion, and to remove the (possibly empty) set of cells that rely on
+    the widget, to avoid orphan cells.
+    :param sender Class concerned by the deletion
+    :param instance Instance (deleted from db!) concerned by the deletion
+    :param using Database alias being used
+    """
+    contenttype = ContentType.objects.get_for_model(instance)
+    try:
+        cell = Cell.objects.get(content_type=contenttype.pk, object_id=instance.pk)
+        cell.delete()
+    except Cell.DoesNotExist:
+        pass
+
 
 
 class AbstractWidget(models.Model):
