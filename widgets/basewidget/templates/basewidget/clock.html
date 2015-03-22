@@ -1,4 +1,4 @@
-{% extends "textwidget/__base.html" %}
+{% extends "basewidget/__base.html" %}
 
 
 {% block widget %}
@@ -13,7 +13,7 @@
             var format = "{{ static_context.format }}";
 
             // If it is in a navbar, add a navbar-text class
-            $(".navbar #clock-{{ wuid }}").addClass('navbar-text');
+            $(".navbar #clock-{{ wuid }}").addClass('navbar-brand');
 
             setInterval(function () {
                 datetime.add(1, "s"); // less costly

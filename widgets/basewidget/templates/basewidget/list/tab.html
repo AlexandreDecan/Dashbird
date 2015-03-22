@@ -1,11 +1,11 @@
-{% extends 'listwidget/__base.html' %}
+{% extends 'basewidget/__base.html' %}
 
 {% block widget %}
     {% if static_context.title %}<h2>{{ static_context.title }}</h2>{% endif %}
 
     <ul id="tab-{{ wuid }}" class="nav nav-tabs">
         {% for entry in static_context.entries %}
-            <li><a href="#{{ wuid }}-entry-{{ forloop.counter0 }}" role="tab" data-toggle="tab">{{ entry.title }}</a></li>
+            <li><a href="#{{ wuid }}-entry-{{ forloop.counter0 }}" role="tab" data-toggle="tab">&nbsp;{{ forloop.counter }}&nbsp;</a></li>
         {% endfor %}
     </ul>
 
@@ -20,7 +20,7 @@
     <script language="javascript">
     $(document).ready(function() {
         var selector = "#tab-{{ wuid }}";
-        var i = 1;
+        var i = 0;
         var max = {{ static_context.entries|length }};
 
         $(selector + " li:eq(0) a").tab('show');

@@ -4,13 +4,9 @@ body {
     overflow: hidden;
 }
 
-nav.navbar {
-    margin-top: 0.8em !important;
-}
-
 .navbar-brand {
-    font-size: 1.05em !important;
-    padding: 0.8em !important;
+    font-size: 1.1em !important;
+    /* padding: 0.8em !important; */
 }
 
 .autorefresh-bar {

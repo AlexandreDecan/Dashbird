@@ -40,8 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dashboard',
-    'widgets.textwidget',
-    'widgets.listwidget',
+    'widgets.basewidget',
 )
 
 MIDDLEWARE_CLASSES = (
