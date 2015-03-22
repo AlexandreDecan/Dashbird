@@ -13,6 +13,28 @@ from django.dispatch import receiver
 from Dashbird.tools import ChoicesFromDir
 
 
+@receiver(post_delete)
+def remove_orphan_cells(sender, instance, **kwargs):
+    """
+    This function is called every time a deletion is detected through the system.
+    It aims to intercept widget deletion, and to remove the (possibly empty) set of cells that rely on
+    the widget, to avoid orphan cells.
+    :param sender Class concerned by the deletion
+    :param instance Instance (deleted from db!) concerned by the deletion
+    :param using Database alias being used
+    """
+    contenttype = ContentType.objects.get_for_model(instance)
+    try:
+        cell = Cell.objects.get(content_type=contenttype.pk, object_id=instance.pk)
+        cell.delete()
+    except Cell.DoesNotExist:
+        # Occurs when no cell references the deleted object (e.g. when it is not a widget)
+        pass
+    except ValueError:
+        # Occurs when instance.pk can not be casted to int
+        pass
+
+
 class RegisteredDisplayManager(models.Manager):
     def get_queryset(self):
         return super(RegisteredDisplayManager, self).get_queryset().filter(dashboard__isnull=False)
@@ -79,6 +101,9 @@ class Dashboard(models.Model):
     def __unicode__(self):
         return '{name}'.format(name=self.name)
 
+    def get_absolute_url(self):
+        return reverse_lazy('dashboard', kwargs={'dashboard_id': self.id})
+
     def get_header_layout(self):
         return 'dashboard/header/' + self.header_layout
 
@@ -119,26 +144,6 @@ class Cell(models.Model):
             position=self.position,
             widget=self.widget
         )
-
-
-
-@receiver(post_delete)
-def remove_orphan_cells(sender, instance, **kwargs):
-    """
-    This function is called every time a deletion is detected through the system.
-    It aims to intercept widget deletion, and to remove the (possibly empty) set of cells that rely on
-    the widget, to avoid orphan cells.
-    :param sender Class concerned by the deletion
-    :param instance Instance (deleted from db!) concerned by the deletion
-    :param using Database alias being used
-    """
-    contenttype = ContentType.objects.get_for_model(instance)
-    try:
-        cell = Cell.objects.get(content_type=contenttype.pk, object_id=instance.pk)
-        cell.delete()
-    except Cell.DoesNotExist:
-        pass
-
 
 
 class AbstractWidget(models.Model):

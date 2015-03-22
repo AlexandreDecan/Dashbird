@@ -4,7 +4,10 @@
     {% spaceless %}
         {% for child in module.children %}
             <div class="grp-module" id="module-{{child.name|lower}}">
-                <h{% if subindex %}4{% else %}3{% endif %}><a href="{{ child.url }}">{% trans child.name %}</a></h{% if subindex %}4{% else %}3{% endif %}>
+
+                <h{% if subindex %}4{% else %}3{% endif %}><a href="{{ child.url }}">{% trans child.name %}</a>
+                    {% if child.view %}<div style="float:right;"><a href="{{ child.view }}">voir</a></div>{% endif %}
+                </h{% if subindex %}4{% else %}3{% endif %}>
                 {% for instance in child.instances %}
                     <div class="grp-row">
                         {% if instance.url %}
