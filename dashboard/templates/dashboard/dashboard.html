@@ -3,6 +3,11 @@
 
 {% block title %}{{ block.super }} / {{ dashboard.name }}{% endblock %}
 
+{% block javascript %}
+    {{ block.super }}
+    <script src="{% static 'dashboard/dashboard.js' %}"></script>
+{% endblock %}
+
 {% block stylesheets %}
     {{ block.super }}
     <link href="{% static dashboard.get_style %}" rel="stylesheet"/>
