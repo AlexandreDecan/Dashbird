@@ -3,6 +3,6 @@
 {% block widget %}
     {% if static_context.title %}<h2>{{ static_context.title }}</h2>{% endif %}
     {% for entry in static_context.entries %}
-        {% include static_context.inner_layout with entry=entry %}
+        <div class="entry">{% include static_context.inner_layout with entry=entry %}</div>
     {% endfor %}
 {% endblock %}

@@ -1,6 +1,6 @@
 <ul>
     <li>{% if entry.title %}<b>{{ entry.title }}</b> : {% endif %}
-        {{ entry.content|safe }}
+        {{ entry.content|linebreaks }}
         <br/>
         <span class="text-muted small">Il y a {{ entry.created|timesince }}</span>
     </li>

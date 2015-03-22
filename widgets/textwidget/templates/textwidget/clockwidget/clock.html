@@ -5,23 +5,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
     <script language="javascript">
         $(document).ready(function() {
-
             moment.locale('fr');
 
-            function update_clock(element) {
-                var datetime = moment();
-                datetime.add(element.attr("data-delay"), 's');
-                element.text(datetime.format(element.attr("data-format")));
-                setTimeout(function () { update_clock(element); }, 1000);
-            };
+            var element = $("#clock-{{ wuid }}");
+            var datetime = moment();
+            datetime.add({{ static_context.delay }}, "s");
+            var format = "{{ static_context.format }}";
 
             // If it is in a navbar, add a navbar-text class
             $(".navbar #clock-{{ wuid }}").addClass('navbar-text');
 
-            update_clock($("#clock-{{ wuid }}"));
+            setInterval(function () {
+                datetime.add(1, "s"); // less costly
+                element.text(datetime.format(format));
+                return arguments.callee;
+            }(), 1000);
         });
     </script>
-    <span id="clock-{{ wuid }}" data-format="{{ static_context.format }}" data-delay="{{ static_context.delay }}"></span>
+    <span id="clock-{{ wuid }}"></span>
 
 {% endblock %}
 

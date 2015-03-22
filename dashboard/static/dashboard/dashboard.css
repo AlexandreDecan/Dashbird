@@ -5,12 +5,12 @@ body {
 }
 
 nav.navbar {
-    margin-top: 0.8em;
+    margin-top: 0.8em !important;
 }
 
 .navbar-brand {
-    font-size: 1.05em;
-    padding: 0.8em;
+    font-size: 1.05em !important;
+    padding: 0.8em !important;
 }
 
 .autorefresh-bar {

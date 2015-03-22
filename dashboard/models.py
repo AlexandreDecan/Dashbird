@@ -90,7 +90,7 @@ class Dashboard(models.Model):
                                      choices=FOOTER_LAYOUT_LIST, default=FOOTER_LAYOUT_DEFAULT)
     style = models.CharField(verbose_name='thème', max_length=100, choices=STYLE_LIST, default=STYLE_DEFAULT,
                              help_text='Jeu de couleurs et disposition à appliquer.')
-    auto_refresh = models.IntegerField(verbose_name='rafraichissement', default=60,
+    auto_refresh = models.IntegerField(verbose_name='rafraichissement', default=120,
                                        help_text='Le dashboard se rafraîchit automatiquement au bout du nombre de '
                                                  'secondes indiquées. Si ce nombre est plus petit ou égal à 0, le '
                                                  'rafraichissement automatique est désactivé.')

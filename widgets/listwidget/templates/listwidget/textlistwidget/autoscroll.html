@@ -1,0 +1,31 @@
+{% extends 'listwidget/__base.html' %}
+
+{% block widget %}
+    {% if static_context.title %}<h2>{{ static_context.title }}</h2>{% endif %}
+
+    <div id="autoscroll-{{ wuid }}" style="overflow: hidden;">
+        {% for entry in static_context.entries %}
+            <div class="entry">{% include static_context.inner_layout with entry=entry %}</div>
+        {% endfor %}
+    </div>
+
+    <script language="javascript">
+    $(document).ready(function() {
+        function animateList(el, animate) {
+            var entry = el.children(".entry").first();
+            entry.slideUp(animate, function() {
+                entry.remove();
+                el.append(entry);
+                entry.fadeIn(animate);
+            });
+        }
+
+        var el = $("#autoscroll-{{ wuid }}");
+        var delay = 5000;
+        var animate = 1000;
+
+        setInterval(function () { animateList(el, animate); }, delay);
+    });
+    </script>
+
+{% endblock %}
