@@ -1,0 +1,34 @@
+{% extends 'listwidget/__base.html' %}
+
+{% block widget %}
+    {% if static_context.title %}<h2>{{ static_context.title }}</h2>{% endif %}
+
+    <ul id="tab-{{ wuid }}" class="nav nav-tabs">
+        {% for entry in static_context.entries %}
+            <li><a href="#{{ wuid }}-entry-{{ forloop.counter0 }}" role="tab" data-toggle="tab">{{ entry.title }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <div class="tab-content">
+    {% for entry in static_context.entries %}
+        <div role="tabppanel" class="tab-pane entry fade" id="{{ wuid }}-entry-{{ forloop.counter0 }}">
+            {% include static_context.inner_layout with entry=entry %}
+        </div>
+    {% endfor %}
+    </div>
+
+    <script language="javascript">
+    $(document).ready(function() {
+        var selector = "#tab-{{ wuid }}";
+        var i = 1;
+        var max = {{ static_context.entries|length }};
+
+        $(selector + " li:eq(0) a").tab('show');
+        setInterval(function () {
+            i = (i + 1) % max;
+            $(selector + " li:eq("+i+") a").tab('show');
+        }, 10000);
+    });
+    </script>
+
+{% endblock %}
