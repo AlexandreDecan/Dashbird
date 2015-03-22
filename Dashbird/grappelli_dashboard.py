@@ -12,6 +12,28 @@ from django.core.urlresolvers import reverse
 
 from grappelli.dashboard import modules, Dashboard
 from grappelli.dashboard.utils import get_admin_site_name
+from dashboard.models import Cell
+from dashboard.models import Dashboard as DashboardModel
+
+
+class CellList(modules.DashboardModule):
+    title = 'Accès rapide'
+    template = 'grp_cell_list.html'
+
+    def init_with_context(self, context):
+
+        for dashboard in DashboardModel.objects.order_by('name'):
+            bloc = {'name': dashboard.name,
+                    'url': reverse('admin:dashboard_dashboard_change', args=(dashboard.id,)),
+                    'instances': []}
+            for cell in Cell.objects.filter(dashboard=dashboard):
+                url = 'admin:{app_label}_{model}_change'.format(app_label=cell.content_type.app_label,
+                                                                model=cell.content_type.model)
+                bloc['instances'].append({'name': cell.widget.name,
+                                          'url': reverse(url, args=(cell.object_id,))})
+            self.children.append(bloc)
+
+        self._initialized = True
 
 
 class CustomIndexDashboard(Dashboard):
@@ -39,9 +61,13 @@ class CustomIndexDashboard(Dashboard):
             models=('django.contrib.*',)
         ))
 
+        self.children.append(CellList(
+            column=2
+        ))
+
         self.children.append(modules.LinkList(
-            _('Liens'),
-            column=2,
+            title=_('Liens'),
+            column=3,
             children=[
                 {
                     'title': 'Dashbird',
@@ -64,7 +90,7 @@ class CustomIndexDashboard(Dashboard):
 
         self.children.append(modules.RecentActions(
             _('Recent Actions'),
-            limit=10,
+            limit=8,
             collapsible=False,
             column=3,
         ))
