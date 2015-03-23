@@ -1,10 +1,14 @@
-<div class="panel panel-{{ entry.type }}">
-    {% if entry.title %}
-        <div class="panel-heading">
-            {{ entry.title }}
+{% extends "basewidget/entry/__base.html" %}
+
+{% block entry %}
+    <div class="panel panel-{{ entry.type }}">
+        {% if entry.title %}
+            <div class="panel-heading">
+                {{ entry.title }}
+            </div>
+        {% endif %}
+        <div class="panel-body">
+            {{ entry.content|linebreaks }}
         </div>
-    {% endif %}
-    <div class="panel-body">
-        {{ entry.content|linebreaks }}
     </div>
-</div>
+{% endblock %}

@@ -11,7 +11,7 @@
 
     <div class="tab-content">
     {% for entry in static_context.entries %}
-        <div role="tabppanel" class="tab-pane entry fade" id="{{ wuid }}-entry-{{ forloop.counter0 }}">
+        <div role="tabppanel" class="tab-pane fade" id="{{ wuid }}-entry-{{ forloop.counter0 }}">
             {% include static_context.inner_layout with entry=entry %}
         </div>
     {% endfor %}

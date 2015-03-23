@@ -63,7 +63,7 @@ class HTMLWidget(AbstractWidget):
 
 
 class TextWidget(AbstractWidget):
-    LAYOUT_LIST = ChoicesFromDir(TEMPLATE_DIR + 'entry/', '(?P<name>.*)\.html')
+    LAYOUT_LIST = ChoicesFromDir(TEMPLATE_DIR + 'entry/', '(?P<name>[^_].*)\.html')
     LAYOUT_DEFAULT = 'panel.html'
 
     title = models.CharField(verbose_name='titre', blank=True, max_length=100)
@@ -125,10 +125,10 @@ class TextEntry(models.Model):
 
 
 class TextListWidget(AbstractWidget):
-    LAYOUT_LIST = ChoicesFromDir(TEMPLATE_DIR + 'list/', '(?P<name>.*)\.html')
+    LAYOUT_LIST = ChoicesFromDir(TEMPLATE_DIR + 'list/', '(?P<name>[^_].*)\.html')
     LAYOUT_DEFAULT = 'default.html'
 
-    INNER_LAYOUT_LIST = ChoicesFromDir(TEMPLATE_DIR + 'entry/', '(?P<name>.*)\.html')
+    INNER_LAYOUT_LIST = ChoicesFromDir(TEMPLATE_DIR + 'entry/', '(?P<name>[^_].*)\.html')
     INNER_LAYOUT_DEFAULT = 'panel.html'
 
     title = models.CharField(verbose_name='titre', blank=True, max_length=100)

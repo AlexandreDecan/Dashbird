@@ -12,7 +12,7 @@ class ChoicesFromDir(object):
     Primarily built to be used in `choices` model field attribute.
     """
 
-    _DISPLAY_SPLIT_RE = re.compile(r'-| |_|\.')
+    _DISPLAY_SPLIT_RE = re.compile(r'[^a-zA-Z0-9]')
 
     def __init__(self, path, match=None, display_func=None):
         """
@@ -33,11 +33,16 @@ class ChoicesFromDir(object):
         match_re = re.compile(self.match)
         path = os.path.join(settings.BASE_DIR, self.path)
 
+        output = []
+
         for filename in os.listdir(path):
             matching = match_re.match(filename)
             if matching:
                 if os.path.isfile(os.path.join(path, filename)):
-                    yield (filename, self.display_func(matching.group('name')))
+                    output.append((filename, self.display_func(matching.group('name'))))
+        output.sort(key=lambda x: x[0])
+        for _ in output:
+            yield _
 
 
     @staticmethod

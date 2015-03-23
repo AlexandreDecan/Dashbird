@@ -66,13 +66,13 @@ class Display(models.Model):
 
 
 class Dashboard(models.Model):
-    HEADER_LAYOUT_LIST = ChoicesFromDir('dashboard/templates/dashboard/header/', '(?P<name>.*)\.html')
+    HEADER_LAYOUT_LIST = ChoicesFromDir('dashboard/templates/dashboard/header/', '(?P<name>[^_].*)\.html')
     HEADER_LAYOUT_DEFAULT = 'navbar.html'
 
-    MAIN_LAYOUT_LIST = ChoicesFromDir('dashboard/templates/dashboard/main/', '(?P<name>.*)\.html')
-    MAIN_LAYOUT_DEFAULT = '1x3.html'
+    MAIN_LAYOUT_LIST = ChoicesFromDir('dashboard/templates/dashboard/main/', '(?P<name>[^_].*)\.html')
+    MAIN_LAYOUT_DEFAULT = '1x2.html'
 
-    FOOTER_LAYOUT_LIST = ChoicesFromDir('dashboard/templates/dashboard/footer/', '(?P<name>.*)\.html')
+    FOOTER_LAYOUT_LIST = ChoicesFromDir('dashboard/templates/dashboard/footer/', '(?P<name>[^_].*)\.html')
     FOOTER_LAYOUT_DEFAULT = 'nothing.html'
 
     STYLE_LIST = ChoicesFromDir('dashboard/static/dashboard/style/', '(?P<name>.*)\.min\.css')

@@ -5,7 +5,7 @@
 
     <div id="autoscroll-{{ wuid }}">
         {% for entry in static_context.entries %}
-            <div class="entry">{% include static_context.inner_layout with entry=entry %}</div>
+            {% include static_context.inner_layout with entry=entry %}
         {% endfor %}
     </div>
 
