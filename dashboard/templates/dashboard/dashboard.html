@@ -19,9 +19,13 @@
         {% include dashboard.get_header_layout with dashboard=dashboard cells=cells display=display %}
     {% endblock %}
 
+
     {% block main %}
+    <div class="container-fluid">
         {% include dashboard.get_main_layout with dashboard=dashboard cells=cells display=display %}
+    </div>
     {% endblock %}
+
 
     {% block footer %}
         {% include dashboard.get_footer_layout with dashboard=dashboard cells=cells display=display %}

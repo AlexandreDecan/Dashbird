@@ -3,7 +3,7 @@
 {% block widget %}
     {% if static_context.title %}<h2>{{ static_context.title }}</h2>{% endif %}
 
-    <ul id="tab-{{ wuid }}" class="nav nav-tabs">
+    <ul id="tab-{{ wuid }}" class="nav nav-tabs small">
         {% for entry in static_context.entries %}
             <li><a href="#{{ wuid }}-entry-{{ forloop.counter0 }}" role="tab" data-toggle="tab">&nbsp;{{ forloop.counter }}&nbsp;</a></li>
         {% endfor %}
