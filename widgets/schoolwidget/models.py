@@ -22,7 +22,7 @@ class MissingTeacherEntry(models.Model):
     @property
     def items(self):
         items = []
-        for item in self.content.split('\n'):
+        for item in [x for x in self.content.split('\n') if len(x) > 0]:
             try:
                 students, change = item.split(' - ', 1)
             except ValueError:

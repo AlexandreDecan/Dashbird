@@ -1,57 +1,49 @@
 {% extends 'basewidget/__base.html' %}
 
 {% block widget %}
-    <h2>Absence{{ static_context.missing|length|pluralize }} ce {{ static_context.modified|date:'l j F' }}</h2>
-    <p class="well">
-        {% if static_context.missing|length > 0 %}
-            {{ static_context.missing|join:', ' }}
-        {% else %}
-            <em>Aucun</em>
-        {% endif %}
-    </p>
-{% comment %}    <div id="missing-{{ wuid }}">
-        {% for entry in static_context.hours %}
-            <div class="entry">
-            <div class="well">
-                <div class="row">
-                    <div class="col-md-2 text-center">
-                    <span style="font-size:2em;">{{ entry.hour }}</span><span class="small text-muted">h</span>
-                    </div>
-                    <div class="col-md-10">
-                        {% for students, change in entry.items %}
-                            <div class="row" style="font-size:0.9em;">
-                                <div class="col-md-4" style="white-space: nowrap;">{{ students }}</div>
-                                <div class="col-md-8">{{ change }}</div>
-                            <hr/>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            </div>
-        {% endfor %}
-    </div>{% endcomment %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Absence{{ static_context.missing|length|pluralize }} ce {{ static_context.modified|date:'l j F' }}</h2>
+            <p class="text-muted">
+                {% if static_context.missing|length > 0 %}
+                    {{ static_context.missing|join:', ' }}
+                {% else %}
+                    <em>Aucun</em>
+                {% endif %}
+            </p>
+        </div>
+    </div>
 
     <div id="missing-{{ wuid }}">
         {% for entry in static_context.hours %}
             <div class="entry">
                 <div class="row">
                     <div class="col-md-1 text-right">
-                    <span style="font-size:2em;">{{ entry.hour }}</span><span class="small text-muted">h</span>
+                        <span style="font-size:2em;">{{ entry.hour }}</span><span class="small text-muted">h</span>
                     </div>
                     <div class="col-md-11">
-                    <blockquote>
-                        {% for students, change in entry.items %}
-                            <div class="row" style="font-size:1.6em;">
-                                <div class="col-md-4">
-                                    <span style="white-space: nowrap;">{{ students }}</span>
+                        <blockquote style="font-size:1.0em; min-height:90px;">
+                            {% for students, change in entry.items %}
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <span style="white-space: nowrap;">{{ students }}</span>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <span class="text-muted">{{ change }}</span>
+                                    </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <span class="text-muted">{{ change }}</span>
+                            {% empty %}
+                                <div class="row text-center">
+                                    <div class="col-md-4">
+                                        <span>- - -</span>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <span class="text-muted">- - -</span>
+                                    </div>
                                 </div>
-                            </div>
-                        {% endfor %}
-                    </blockquote>
+                            {% endfor %}
+                        </blockquote>
                     </div>
                 </div>
             </div>
