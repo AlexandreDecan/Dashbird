@@ -12,7 +12,8 @@ TEMPLATE_PUB = 'school/'
 
 class MissingTeacherEntry(models.Model):
     hour = models.PositiveIntegerField(verbose_name='Heure de cours')
-    content = models.TextField(verbose_name='contenu', blank=True)
+    content = models.TextField(verbose_name='contenu', blank=True,
+                               help_text='Utilisez le tiret "-" pour séparer une ligne en deux colonnes à l\'affichage.')
     visible = models.BooleanField(verbose_name='visible ?', default=True)
     created = models.DateTimeField(verbose_name='date de création', auto_now_add=True)
     modified = models.DateTimeField(verbose_name='date de modification', auto_now=True)
