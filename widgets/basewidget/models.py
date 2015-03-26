@@ -52,8 +52,8 @@ class HTMLWidget(AbstractWidget):
                                                                               'HTML dans ce widget.')
 
     class Meta():
-        verbose_name = 'widget - contenu HTML'
-        verbose_name_plural = 'widgets - contenu HTML'
+        verbose_name = 'contenu HTML'
+        verbose_name_plural = 'contenu HTML'
 
     def get_layout(self):
         return 'basewidget/HTMLcontent.html'
@@ -73,8 +73,8 @@ class TextWidget(AbstractWidget):
     content = models.TextField(verbose_name='contenu')
 
     class Meta():
-        verbose_name = 'widget - bloc de texte'
-        verbose_name_plural = 'widgets - bloc de texte'
+        verbose_name = 'bloc de texte'
+        verbose_name_plural = 'bloc de texte'
 
     def get_layout(self):
         return TEMPLATE_PUB + 'text.html'
@@ -94,8 +94,8 @@ class ClockWidget(AbstractWidget):
                                           'Ce décalage peut être positif ou négatif.')
 
     class Meta():
-        verbose_name = 'widget - date et heure'
-        verbose_name_plural = 'widgets - date et heure'
+        verbose_name = 'date et heure'
+        verbose_name_plural = 'date et heure'
 
     def get_layout(self):
         return TEMPLATE_PUB + 'clock.html'
@@ -138,8 +138,8 @@ class TextListWidget(AbstractWidget):
                                     choices=INNER_LAYOUT_LIST, default=INNER_LAYOUT_DEFAULT, max_length=100)
 
     class Meta():
-        verbose_name = 'widget - liste de textes'
-        verbose_name_plural = 'widgets - liste de textes'
+        verbose_name = 'liste de textes'
+        verbose_name_plural = 'liste de textes'
 
     def get_layout(self):
         return TEMPLATE_PUB + 'list/' + self.layout
