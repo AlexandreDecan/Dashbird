@@ -1,11 +1,10 @@
 body {
-    font-size: 28px;
     height: 100%;
     overflow: hidden;
 }
 
 .navbar-brand {
-    font-size: 1.1em !important;
+
     /* padding: 0.8em !important; */
 }
 
@@ -16,10 +15,10 @@ body {
 }
 
 .autorefresh-bar .progress {
-    height: 4px;
+    height: 2px;
 }
 
 .autorefresh-bar .progress-bar {
-    height: 4px;
+    height: 2px;
     transition-timing-function: linear;
 }
