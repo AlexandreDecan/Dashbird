@@ -4,7 +4,7 @@
     <div class="{% if entry.type != 'default' %}alert alert-{{ entry.type }}{% else %}well{% endif %}">
         <div>
             {% if entry.title %}<b>{{ entry.title }}</b>{% endif %}
-            {{ entry.content|linebreaks }}
+            {{ entry.content|linebreaksbr }}
         </div>
         {% comment %}<div class="pull-right small">Il y a {{ entry.created|timesince }}</div>{% endcomment %}
         <div class="clearfix"></div>

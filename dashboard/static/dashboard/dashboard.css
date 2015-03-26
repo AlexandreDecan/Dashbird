@@ -3,9 +3,8 @@ body {
     overflow: hidden;
 }
 
-.navbar-brand {
-
-    /* padding: 0.8em !important; */
+.navbar {
+    margin-bottom: 0px;
 }
 
 .autorefresh-bar {
