@@ -9,11 +9,13 @@ from models import HTMLWidget, TextWidget, ClockWidget, TextEntry, TextListWidge
 @admin.register(HTMLWidget)
 class SimpleTextWidgetAdmin(admin.ModelAdmin):
     list_display = ('name', 'content',)
+    readonly_fields = ('modified',)
 
 
 @admin.register(TextWidget)
 class PanelTextWidgetAdmin(admin.ModelAdmin):
     list_display = ('name', 'title', 'type', 'layout')
+    readonly_fields = ('modified',)
 
 
 @admin.register(ClockWidget)
@@ -23,13 +25,14 @@ class ClockTextWidgetAdmin(admin.ModelAdmin):
 
 class InlineTextEntryAdmin(admin.TabularInline):
     model = TextEntry
-    readonly_fields = ('created', 'modified',)
+    readonly_fields = ('modified',)
     extra = 0
 
 
 @admin.register(TextListWidget)
 class TextListWidgetAdmin(admin.ModelAdmin):
     list_display = ('name', 'title', 'layout', 'inner_layout',)
+    readonly_fields = ('modified',)
     inlines = [InlineTextEntryAdmin]
 
 
