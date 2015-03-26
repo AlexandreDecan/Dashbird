@@ -27,7 +27,7 @@ class MissingTeacherEntry(models.Model):
                 students, change = item.split(' - ', 1)
             except ValueError:
                 students, change = item, ''
-            items.append((students.strip(),change.strip()))
+            items.append((students.strip(), change.strip()))
         return items
 
     class Meta():
