@@ -65,8 +65,8 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True, verbose_name='date de cr\xe9ation')),
                 ('modified', models.DateTimeField(auto_now=True, verbose_name='date de modification')),
                 ('title', models.CharField(max_length=100, verbose_name='titre', blank=True)),
-                ('layout', models.CharField(default='default.html', max_length=100, verbose_name='mise en page de la liste', choices=[('default.html', 'Default'), ('tab.html', 'Tab'), ('autoscroll.html', 'Autoscroll')])),
-                ('inner_layout', models.CharField(default='panel.html', max_length=100, verbose_name='apparence des entr\xe9es', choices=[('alert.html', 'Alert'), ('panel.html', 'Panel'), ('list.html', 'List')])),
+                ('layout', models.CharField(default='default.html', max_length=100, verbose_name='mise en page de la liste', choices=[('autoscroll.html', 'Autoscroll'), ('default.html', 'Default'), ('tab.html', 'Tab')])),
+                ('inner_layout', models.CharField(default='panel.html', max_length=100, verbose_name='apparence des entr\xe9es', choices=[('alert.html', 'Alert'), ('panel.html', 'Panel')])),
             ],
             options={
                 'verbose_name': 'widget - liste de textes',
@@ -83,7 +83,7 @@ class Migration(migrations.Migration):
                 ('modified', models.DateTimeField(auto_now=True, verbose_name='date de modification')),
                 ('title', models.CharField(max_length=100, verbose_name='titre', blank=True)),
                 ('type', models.CharField(default='', max_length=100, verbose_name='type de texte', choices=[('default', 'Par d\xe9faut'), ('primary', 'Primaire'), ('success', 'Succ\xe8s'), ('info', 'Information'), ('warning', 'Avertissement'), ('danger', 'Alerte')])),
-                ('layout', models.CharField(default='panel.html', max_length=100, verbose_name='mise en page', choices=[('alert.html', 'Alert'), ('panel.html', 'Panel'), ('list.html', 'List')])),
+                ('layout', models.CharField(default='panel.html', max_length=100, verbose_name='mise en page', choices=[('alert.html', 'Alert'), ('panel.html', 'Panel')])),
                 ('content', models.TextField(verbose_name='contenu')),
             ],
             options={
