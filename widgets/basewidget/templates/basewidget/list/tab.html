@@ -3,30 +3,34 @@
 {% block widget %}
     {% if static_context.title %}<h2>{{ static_context.title }}</h2>{% endif %}
 
-    <ul id="tab-{{ wuid }}" class="nav nav-tabs small">
-        {% for entry in static_context.entries %}
-            <li><a href="#{{ wuid }}-entry-{{ forloop.counter0 }}" role="tab" data-toggle="tab">&nbsp;{{ forloop.counter }}&nbsp;</a></li>
-        {% endfor %}
-    </ul>
-
-    <div class="tab-content">
-    {% for entry in static_context.entries %}
-        <div role="tabppanel" class="tab-pane fade" id="{{ wuid }}-entry-{{ forloop.counter0 }}">
-            {% include static_context.inner_layout with entry=entry %}
+    <div class="row">
+        <div class="col-xs-12" id="{{ wuid }}-entries">
+            <ul class="list-group">
+                {% for entry in static_context.entries %}
+                    <li class="list-group-item">
+                        <b{% if entry.type != "default" %} class="text-{{ entry.type }}"{% endif %}>
+                            {{ entry.title }}
+                        </b>
+                        <div id="{{ wuid }}-entry-{{ forloop.counter0 }}"{% if not forloop.first %} style="display: none;"{% endif %}>
+                            {% include static_context.inner_layout with entry=entry %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
-    {% endfor %}
     </div>
 
     <script language="javascript">
     $(document).ready(function() {
-        var selector = "#tab-{{ wuid }}";
+        var entries = "#{{ wuid }}-entry-";
         var i = 0;
         var max = {{ static_context.entries|length }};
 
-        $(selector + " li:eq(0) a").tab('show');
         setInterval(function () {
-            i = (i + 1) % max;
-            $(selector + " li:eq("+i+") a").tab('show');
+            $(entries + i).slideToggle(1000, function() {
+                i = (i + 1) % max;
+                $(entries + i).slideToggle(1000);
+            });
         }, 10000);
     });
     </script>
