@@ -3,7 +3,7 @@
 {% block widget %}
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-xs-12">
             <h2>Absence{{ static_context.missing|length|pluralize }} ce {{ static_context.modified|date:'l j F' }}</h2>
             <p class="text-muted">
                 {% if static_context.missing|length > 0 %}
@@ -19,26 +19,28 @@
         {% for entry in static_context.hours %}
             <div class="entry">
                 <div class="row">
-                    <div class="col-md-1 text-right">
-                        <span style="font-size:2em;">{{ entry.hour }}</span><span class="small text-muted">h</span>
+                    <div class="col-xs-1">
+                        <div class="text-right">
+                            <span style="font-size:2em;">{{ entry.hour }}</span><span class="small text-muted">h</span>
+                        </div>
                     </div>
-                    <div class="col-md-11">
-                        <blockquote style="font-size:1.0em; min-height:90px;">
+                    <div class="col-xs-11">
+                        <blockquote style="font-size:1.0em; min-height:50px;">
                             {% for students, change in entry.items %}
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-xs-4">
                                         <span style="white-space: nowrap;">{{ students }}</span>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-xs-8">
                                         <span class="text-muted">{{ change }}</span>
                                     </div>
                                 </div>
                             {% empty %}
-                                <div class="row text-center">
-                                    <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-xs-4">
                                         <span>- - -</span>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-xs-8">
                                         <span class="text-muted">- - -</span>
                                     </div>
                                 </div>
