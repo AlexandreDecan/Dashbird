@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'dashboard',
     'widgets.basewidget',
+    'widgets.schoolwidget',
 )
 
 MIDDLEWARE_CLASSES = (
