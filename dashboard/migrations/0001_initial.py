@@ -33,9 +33,9 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100, verbose_name='nom du dashboard')),
                 ('description', models.TextField(help_text="Par exemple: les personnes ou les lieux destin\xe9s \xe0 l'usage de ce dashboard.", verbose_name='description', blank=True)),
                 ('header_layout', models.CharField(default='navbar.html', max_length=100, verbose_name='mise en page du haut de page', choices=[('navbar.html', 'Navbar')])),
-                ('main_layout', models.CharField(default='1x3.html', max_length=100, verbose_name='mise en page du corps de page', choices=[('1x3.html', '1X3')])),
+                ('main_layout', models.CharField(default='1x2.html', max_length=100, verbose_name='mise en page du corps de page', choices=[('1x1.html', '1X1'), ('1x2.html', '1X2'), ('1x2_asym.html', '1X2 Asym'), ('1x3.html', '1X3')])),
                 ('footer_layout', models.CharField(default='nothing.html', max_length=100, verbose_name='mise en page du pied de page', choices=[('nothing.html', 'Nothing')])),
-                ('style', models.CharField(default='default.min.css', help_text='Jeu de couleurs et disposition \xe0 appliquer.', max_length=100, verbose_name='th\xe8me', choices=[('bootstrap-theme.min.css', 'Bootstrap Theme'), ('superhero.min.css', 'Superhero'), ('lumen.min.css', 'Lumen'), ('default.min.css', 'Default'), ('cerulean.min.css', 'Cerulean'), ('slate.min.css', 'Slate')])),
+                ('style', models.CharField(default='default.min.css', help_text='Jeu de couleurs et disposition \xe0 appliquer.', max_length=100, verbose_name='th\xe8me', choices=[('bootstrap-theme.min.css', 'Bootstrap Theme'), ('cerulean.min.css', 'Cerulean'), ('default.min.css', 'Default'), ('lumen.min.css', 'Lumen'), ('slate.min.css', 'Slate'), ('superhero.min.css', 'Superhero')])),
                 ('auto_refresh', models.IntegerField(default=120, help_text='Le dashboard se rafra\xeechit automatiquement au bout du nombre de secondes indiqu\xe9es. Si ce nombre est plus petit ou \xe9gal \xe0 0, le rafraichissement automatique est d\xe9sactiv\xe9.', verbose_name='rafraichissement')),
             ],
             options={
