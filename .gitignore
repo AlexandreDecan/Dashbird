@@ -4,6 +4,3 @@ __pycache__/
 
 # Django stuff:
 *.log
-
-# Lexpage-specific
-db.sqlite3

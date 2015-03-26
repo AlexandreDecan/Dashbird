@@ -45,8 +45,8 @@ class MissingTeacherWidget(AbstractWidget):
                                                'information n\'a été entrée.')
 
     class Meta():
-        verbose_name = 'enseignant absent'
-        verbose_name_plural = 'enseignants absents'
+        verbose_name = 'absences des enseignants'
+        verbose_name_plural = 'absences des enseignants'
 
     def get_static_context(self):
         hours = self.hours.filter(visible=True).order_by('hour')
