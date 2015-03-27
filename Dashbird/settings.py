@@ -40,7 +40,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dashboard',
-    'widgets.basewidget',
+    'widgets.textwidget',
+    'widgets.listwidget',
     'widgets.schoolwidget',
 )
 

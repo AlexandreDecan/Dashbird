@@ -1,0 +1,14 @@
+{% extends "textwidget/entry/__base.html" %}
+
+{% block entry %}
+    <div class="panel panel-{{ entry.type }}">
+        {% if entry.title %}
+            <div class="panel-heading">
+                {{ entry.title }}
+            </div>
+        {% endif %}
+        <div class="panel-body">
+            {{ entry.content|linebreaksbr }}
+        </div>
+    </div>
+{% endblock %}
